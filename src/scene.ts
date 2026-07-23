@@ -11,8 +11,6 @@ type Anim = { kind: 'idle' } | { kind: 'attack'; t: number } | { kind: 'hit'; t:
 
 const ATTACK_TIME = 0.9;
 const HIT_TIME = 0.6;
-const BRILLIANT_X = -2.1;
-const BORING_X = 2.1;
 // 3/4 stance: mostly facing each other, angled a touch toward camera
 const STANCE = 0.42;
 const BRILLIANT_ROT = Math.PI / 2 - STANCE;
@@ -35,6 +33,8 @@ export class BattleScene {
   private papers: Paper[] = [];
   private clock = new THREE.Clock();
   private t = 0;
+  private spread = 2.1;
+  private lookY = 1.0;
   private brilliantFaces = {
     idle: faces.faceBrilliant(), attack: faces.faceBrilliantAttack(),
     hurt: faces.faceBrilliantHurt(), ko: faces.faceBrilliantKO(),
@@ -90,7 +90,7 @@ export class BattleScene {
     this.scene.add(strip);
 
     this.brilliant = buildBrilliant();
-    this.brilliant.group.position.x = BRILLIANT_X;
+    this.brilliant.group.position.x = -this.spread;
     this.brilliant.group.rotation.y = BRILLIANT_ROT;
     this.scene.add(this.brilliant.group);
 
@@ -103,15 +103,22 @@ export class BattleScene {
   private resize(): void {
     const w = innerWidth, h = innerHeight;
     this.renderer.setSize(w, h, false); // CSS keeps the canvas full-screen
-    this.camera.aspect = w / h;
-    // pull the camera back far enough that both fighters stay in frame
-    // regardless of aspect (they stand at x = ±2.1)
+    const aspect = w / h;
+    this.camera.aspect = aspect;
+    const portrait = aspect < 0.85;
+    // narrow screens: fighters step closer, lens widens, and the camera
+    // tilts down so the robots sit in the strip above the question card
+    this.camera.fov = portrait ? 55 : 42;
+    this.spread = portrait ? Math.max(0.95, aspect * 2.1) : 2.1;
+    this.brilliant.group.position.x = -this.spread;
+    if (this.boring) this.boring.group.position.x = this.spread;
     const vFov = (this.camera.fov * Math.PI) / 180;
-    const halfW = 3.3;
-    const zForWidth = halfW / (Math.tan(vFov / 2) * this.camera.aspect);
-    this.camera.position.z = Math.max(5.2, zForWidth);
+    const halfW = this.spread + (portrait ? 0.9 : 1.15);
+    const zForWidth = halfW / (Math.tan(vFov / 2) * aspect);
+    this.camera.position.z = Math.max(portrait ? 4.0 : 5.2, zForWidth);
     this.camera.updateProjectionMatrix();
-    this.camera.lookAt(0, 1.0, 0);
+    this.lookY = portrait ? 0.55 : 1.0;
+    this.camera.lookAt(0, this.lookY, 0);
   }
 
   /** Swap in the normal or boss form of Boring. */
@@ -119,7 +126,7 @@ export class BattleScene {
     if (this.boring) this.scene.remove(this.boring.group);
     this.bossMode = boss;
     this.boring = boss ? buildBoss() : buildBoring();
-    this.boring.group.position.x = BORING_X;
+    this.boring.group.position.x = this.spread;
     this.boring.group.rotation.y = BORING_ROT;
     this.scene.add(this.boring.group);
     this.anims.boring = { kind: 'idle' };
