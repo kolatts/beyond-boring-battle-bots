@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Beyond Boring: Battle of the Backlog</title>
+    <meta name="description" content="A quiz battler for the Agentic Coding for Total Beginners curriculum. BRILLIANT vs BORING. 9 rounds. One beam of soul-crushing monotony, returned with interest." />
+  </head>
+  <body>
+    <canvas id="stage"></canvas>
+
+    <div id="hud" class="hidden">
+      <div id="round-banner"></div>
+      <div class="bars">
+        <div class="bar-block left">
+          <div class="bar-label"><span class="name-brilliant">BRILLIANT</span> — MORALE <span id="morale-pips"></span></div>
+          <div class="bar"><div id="morale-fill" class="fill fill-morale"></div></div>
+        </div>
+        <div class="bar-block right">
+          <div class="bar-label"><span id="boring-pips"></span> <span id="boring-label">COMPLIANCE INTEGRITY</span> — <span class="name-boring">BORING</span></div>
+          <div class="bar"><div id="boring-fill" class="fill fill-boring"></div></div>
+        </div>
+      </div>
+    </div>
+
+    <div id="question-card" class="hidden"></div>
+    <div id="overlay" class="hidden"></div>
+
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

@@ -1,0 +1,250 @@
+/* Beyond Boring: Battle of the Backlog — fighting-game HUD over a
+   corporate-horror palette. Ink, paper, orange; Boring gets beige. */
+
+:root {
+  --ink: #22201d;
+  --paper: #f5efe0;
+  --paper-dim: #d8d2c2;
+  --orange: #e87722;
+  --orange-bright: #ff9a3c;
+  --beige: #b9b1a0;
+  --gray-dark: #55524a;
+  --danger: #c0392b;
+  --screen: #161412;
+  --font-display: "Arial Black", "Segoe UI Black", system-ui, sans-serif;
+  --font-mono: Consolas, "Cascadia Mono", "Courier New", monospace;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html, body { height: 100%; overflow: hidden; background: var(--ink); }
+
+#stage { position: fixed; inset: 0; width: 100%; height: 100%; display: block; }
+
+.hidden { display: none !important; }
+
+/* ---------- HUD ---------- */
+
+#hud {
+  position: fixed; top: 0; left: 0; right: 0;
+  padding: 14px 18px 0;
+  z-index: 5;
+  pointer-events: none;
+}
+
+#round-banner {
+  text-align: center;
+  font-family: var(--font-display);
+  font-size: clamp(14px, 2.2vw, 22px);
+  letter-spacing: 0.12em;
+  color: var(--paper);
+  text-shadow: 0 2px 0 #000, 0 0 18px rgba(232, 119, 34, 0.35);
+  margin-bottom: 10px;
+}
+
+#round-banner.boss { color: var(--danger); text-shadow: 0 2px 0 #000, 0 0 22px rgba(192, 57, 43, 0.6); }
+
+.bars { display: flex; gap: 6vw; justify-content: space-between; }
+
+.bar-block { flex: 1; max-width: 46%; }
+.bar-block.right .bar-label { text-align: right; }
+
+.bar-label {
+  font-family: var(--font-mono);
+  font-size: clamp(10px, 1.3vw, 13px);
+  letter-spacing: 0.08em;
+  color: var(--paper-dim);
+  margin-bottom: 4px;
+  text-shadow: 0 1px 0 #000;
+}
+
+.name-brilliant { color: var(--orange-bright); font-weight: bold; }
+.name-boring { color: var(--beige); font-weight: bold; }
+
+.bar {
+  height: 22px;
+  background: #171512;
+  border: 3px solid var(--ink);
+  outline: 2px solid rgba(245, 239, 224, 0.25);
+  box-shadow: 0 3px 0 rgba(0, 0, 0, 0.5);
+  transform: skewX(-12deg);
+  overflow: hidden;
+}
+
+.fill {
+  height: 100%;
+  transition: width 0.45s cubic-bezier(0.2, 0.9, 0.3, 1.2);
+}
+
+.fill-morale {
+  background: linear-gradient(180deg, var(--orange-bright), var(--orange) 55%, #b85a15);
+  box-shadow: 0 0 14px rgba(255, 154, 60, 0.55);
+}
+
+.bar-block.right .bar { direction: rtl; }
+.fill-boring {
+  background: linear-gradient(180deg, #d9d2c0, var(--beige) 55%, #8d8574);
+  margin-left: auto;
+}
+
+/* ---------- question card (lower third, classic HUD zone) ---------- */
+
+#question-card {
+  position: fixed;
+  left: 50%; bottom: 3vh;
+  transform: translateX(-50%);
+  width: min(920px, 94vw);
+  background: rgba(22, 20, 18, 0.94);
+  border: 3px solid var(--gray-dark);
+  outline: 2px solid rgba(245, 239, 224, 0.15);
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6);
+  padding: 18px 22px;
+  z-index: 6;
+}
+
+.q-count {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  color: var(--orange);
+  margin-bottom: 8px;
+}
+
+.q-prompt {
+  font-family: var(--font-mono);
+  font-size: clamp(14px, 1.7vw, 17px);
+  line-height: 1.45;
+  color: var(--paper);
+  margin-bottom: 14px;
+}
+
+.q-choices { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+@media (max-width: 720px) { .q-choices { grid-template-columns: 1fr; } }
+
+/* ---------- buttons ---------- */
+
+.btn {
+  font-family: var(--font-mono);
+  cursor: pointer;
+  border: 2px solid var(--gray-dark);
+  background: #2b2926;
+  color: var(--paper);
+  text-align: left;
+  padding: 10px 14px;
+  font-size: clamp(13px, 1.5vw, 15px);
+  line-height: 1.35;
+  transition: transform 0.08s, background 0.12s, border-color 0.12s;
+}
+
+.btn:hover {
+  background: #3a3730;
+  border-color: var(--orange);
+  transform: translateY(-1px);
+}
+
+.q-letter {
+  display: inline-block;
+  font-weight: bold;
+  color: var(--orange-bright);
+  margin-right: 8px;
+}
+
+.btn-primary {
+  display: block;
+  margin: 18px auto 0;
+  text-align: center;
+  font-family: var(--font-display);
+  letter-spacing: 0.1em;
+  font-size: clamp(14px, 1.8vw, 17px);
+  background: var(--orange);
+  border: 3px solid #b85a15;
+  color: var(--screen);
+  padding: 12px 28px;
+  box-shadow: 0 4px 0 #8a4410;
+}
+
+.btn-primary:hover { background: var(--orange-bright); border-color: var(--orange); transform: translateY(-2px); }
+.btn-primary:active { transform: translateY(1px); box-shadow: 0 1px 0 #8a4410; }
+
+/* ---------- overlay panels ---------- */
+
+#overlay {
+  position: fixed; inset: 0;
+  display: flex; align-items: center; justify-content: center;
+  background: rgba(15, 13, 11, 0.72);
+  z-index: 10;
+  overflow-y: auto;
+  padding: 3vh 0;
+}
+
+.panel {
+  width: min(760px, 92vw);
+  max-height: 94vh;
+  overflow-y: auto;
+  background: var(--screen);
+  border: 3px solid var(--gray-dark);
+  outline: 2px solid rgba(245, 239, 224, 0.18);
+  box-shadow: 0 18px 60px rgba(0, 0, 0, 0.7);
+  padding: 30px 34px;
+  color: var(--paper);
+}
+
+/* title */
+.title-panel { text-align: center; }
+.title-kicker { font-family: var(--font-mono); letter-spacing: 0.35em; font-size: 12px; color: var(--paper-dim); }
+.title-main {
+  font-family: var(--font-display);
+  font-size: clamp(30px, 6vw, 54px);
+  line-height: 1.05;
+  letter-spacing: 0.04em;
+  color: var(--orange-bright);
+  text-shadow: 0 3px 0 #000, 0 0 30px rgba(232, 119, 34, 0.4);
+  margin: 12px 0 16px;
+}
+.title-vs { display: flex; justify-content: center; gap: 16px; align-items: baseline; font-family: var(--font-display); font-size: clamp(16px, 2.6vw, 24px); margin-bottom: 18px; }
+.title-vs .vs { color: var(--danger); font-size: 0.75em; }
+.title-blurb, .title-note { font-family: var(--font-mono); font-size: 13.5px; line-height: 1.6; color: var(--paper-dim); margin-bottom: 12px; text-align: left; }
+.title-note { color: #8a8578; font-size: 12.5px; }
+
+/* round intro */
+.intro-panel { text-align: center; }
+.intro-panel.boss { border-color: var(--danger); }
+.intro-round { font-family: var(--font-mono); letter-spacing: 0.3em; font-size: 12px; color: var(--orange); }
+.intro-panel.boss .intro-round { color: var(--danger); }
+.intro-title { font-family: var(--font-display); font-size: clamp(22px, 4vw, 34px); margin: 10px 0 14px; letter-spacing: 0.05em; }
+.intro-boss-note { font-family: var(--font-mono); font-size: 13px; color: var(--danger); line-height: 1.6; margin-bottom: 10px; }
+
+.quip { text-align: left; border-left: 4px solid var(--beige); background: rgba(185, 177, 160, 0.08); padding: 12px 16px; margin: 14px 0; }
+.quip-brilliant { border-left-color: var(--orange); background: rgba(232, 119, 34, 0.08); }
+.quip-speaker { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.25em; color: #8a8578; margin-bottom: 6px; }
+.quip-text { font-family: var(--font-mono); font-size: 13.5px; line-height: 1.6; color: var(--paper-dim); font-style: italic; }
+
+/* explanation — the whole point of the game */
+.expl-panel.correct { border-color: var(--orange); }
+.expl-panel.wrong { border-color: var(--danger); }
+.expl-verdict {
+  font-family: var(--font-display);
+  font-size: clamp(15px, 2.2vw, 20px);
+  letter-spacing: 0.08em;
+  margin-bottom: 14px;
+}
+.expl-panel.correct .expl-verdict { color: var(--orange-bright); }
+.expl-panel.wrong .expl-verdict { color: var(--danger); }
+.expl-question { font-family: var(--font-mono); font-size: 13px; color: #8a8578; line-height: 1.5; margin-bottom: 14px; }
+.expl-answers { display: flex; flex-direction: column; gap: 8px; margin-bottom: 16px; }
+.expl-chosen, .expl-right { font-family: var(--font-mono); font-size: 13.5px; line-height: 1.5; }
+.tag { display: inline-block; font-size: 10px; letter-spacing: 0.15em; padding: 2px 8px; margin-right: 8px; font-weight: bold; }
+.tag-wrong { background: var(--danger); color: var(--paper); }
+.tag-right { background: var(--orange); color: var(--screen); }
+.expl-heading { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.25em; color: var(--orange); margin-bottom: 8px; }
+.expl-text { font-family: var(--font-mono); font-size: 14px; line-height: 1.65; color: var(--paper); }
+
+/* round clear / game over / victory */
+.clear-panel, .over-panel, .victory-panel { text-align: center; }
+.clear-kicker, .over-kicker { font-family: var(--font-mono); letter-spacing: 0.3em; font-size: 12px; color: var(--orange); }
+.over-kicker { color: var(--danger); }
+.clear-title, .over-title, .victory-title { font-family: var(--font-display); font-size: clamp(20px, 3.4vw, 30px); margin: 10px 0 14px; letter-spacing: 0.04em; line-height: 1.2; }
+.victory-title { color: var(--orange-bright); }
+.clear-score { font-family: var(--font-mono); font-size: 13.5px; color: var(--paper-dim); margin-bottom: 8px; }
+.over-text, .over-note, .victory-text { font-family: var(--font-mono); font-size: 13.5px; line-height: 1.65; color: var(--paper-dim); margin-bottom: 12px; text-align: left; }
+.over-note { color: #8a8578; text-align: center; }
