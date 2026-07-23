@@ -33,12 +33,14 @@ Advisory Board form with bigger beam VFX and a defeat cutscene).
 | Phase | Work | Status |
 |-------|------|--------|
 | 0 | Research: art direction, Insurrection voxel format, humor reference | done |
-| 1 | Repo + scaffold + this plan, committed and pushed | in progress |
-| 2 | Question bank: subagent fan-out, 9 rounds × 8-12 questions | pending |
-| 3 | Game build: voxel robots, quiz UI, state machine, VFX | pending |
-| 4 | Deploy: GitHub Actions → GitHub Pages | pending |
-| 5 | Verification: playwright-cli locally + on production URL | pending |
-| 6 | README with provenance (Fable 5) + per-phase timing | pending |
+| 1 | Repo + scaffold + this plan, committed and pushed | done |
+| 2 | Question bank: subagent fan-out, 9 rounds × 10 questions | done |
+| 3 | Game build: voxel robots, quiz UI, state machine, VFX | done |
+| 4 | Deploy: GitHub Actions → GitHub Pages | done |
+| 5 | Verification: playwright-cli locally + on production URL | done |
+| 6 | README with provenance (Fable 5) + per-phase timing | done |
+
+Timings are recorded in [README.md](README.md).
 
 Timing of each phase is tracked and reported in README.md at the end.
 
