@@ -67,6 +67,15 @@ server and then against the deployed GitHub Pages site. The retry-on-loss
 path (10 wrong answers → morale zero → retry restores the round) was also
 verified against production.
 
+A follow-up polish pass gave the fighters the full Street Fighter /
+Puzzle Fighter treatment: cel-shaded voxel rigs with sticker-style ink
+outlines, 256px CRT faces with phosphor glow and scanlines, an office-
+purgatory arena (spotlight carpet, cubicle silhouettes, fluorescent
+light cones, drifting dust), layered beam VFX with impact sparks, and a
+segmented fighting-game HUD. Self-contained image-generation prompts
+for additional artwork (portraits, splash screens, stage art, badges)
+live in [`art-direction/prompts/`](art-direction/prompts/).
+
 ### Phase timing
 
 | Phase | Work | Duration |
