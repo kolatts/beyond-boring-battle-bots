@@ -9,17 +9,19 @@
   </head>
   <body>
     <canvas id="stage"></canvas>
+    <div id="vignette"></div>
 
     <div id="hud" class="hidden">
       <div id="round-banner"></div>
       <div class="bars">
         <div class="bar-block left">
           <div class="bar-label"><span class="name-brilliant">BRILLIANT</span> — MORALE <span id="morale-pips"></span></div>
-          <div class="bar"><div id="morale-fill" class="fill fill-morale"></div></div>
+          <div class="bar"><div id="morale-fill" class="fill fill-morale"></div><div class="bar-ticks"></div></div>
         </div>
+        <div class="vs-badge">VS</div>
         <div class="bar-block right">
           <div class="bar-label"><span id="boring-pips"></span> <span id="boring-label">COMPLIANCE INTEGRITY</span> — <span class="name-boring">BORING</span></div>
-          <div class="bar"><div id="boring-fill" class="fill fill-boring"></div></div>
+          <div class="bar"><div id="boring-fill" class="fill fill-boring"></div><div class="bar-ticks"></div></div>
         </div>
       </div>
     </div>

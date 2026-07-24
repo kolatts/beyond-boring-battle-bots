@@ -23,6 +23,16 @@ html, body { height: 100%; overflow: hidden; background: var(--ink); }
 
 .hidden { display: none !important; }
 
+/* CRT vignette + faint scanlines over the whole stage */
+#vignette {
+  position: fixed; inset: 0;
+  pointer-events: none;
+  z-index: 3;
+  background:
+    repeating-linear-gradient(0deg, rgba(0,0,0,0.05) 0 1px, transparent 1px 4px),
+    radial-gradient(ellipse at 50% 42%, transparent 52%, rgba(10, 8, 6, 0.5) 100%);
+}
+
 /* ---------- HUD ---------- */
 
 #hud {
@@ -44,7 +54,16 @@ html, body { height: 100%; overflow: hidden; background: var(--ink); }
 
 #round-banner.boss { color: var(--danger); text-shadow: 0 2px 0 #000, 0 0 22px rgba(192, 57, 43, 0.6); }
 
-.bars { display: flex; gap: 6vw; justify-content: space-between; }
+.bars { display: flex; gap: 2vw; justify-content: space-between; align-items: flex-end; position: relative; }
+
+.vs-badge {
+  font-family: var(--font-display);
+  font-size: clamp(15px, 2.4vw, 24px);
+  color: var(--danger);
+  text-shadow: 0 2px 0 #000, 0 0 14px rgba(192, 57, 43, 0.7);
+  transform: skewX(-8deg) translateY(4px);
+  flex: 0 0 auto;
+}
 
 .bar-block { flex: 1; max-width: 46%; }
 .bar-block.right .bar-label { text-align: right; }
@@ -62,13 +81,21 @@ html, body { height: 100%; overflow: hidden; background: var(--ink); }
 .name-boring { color: var(--beige); font-weight: bold; }
 
 .bar {
-  height: 22px;
-  background: #171512;
+  position: relative;
+  height: 24px;
+  background: linear-gradient(180deg, #0d0b09, #1d1a16);
   border: 3px solid var(--ink);
-  outline: 2px solid rgba(245, 239, 224, 0.25);
-  box-shadow: 0 3px 0 rgba(0, 0, 0, 0.5);
+  outline: 2px solid rgba(245, 239, 224, 0.3);
+  box-shadow: 0 3px 0 rgba(0, 0, 0, 0.55), inset 0 2px 3px rgba(0, 0, 0, 0.8);
   transform: skewX(-12deg);
   overflow: hidden;
+}
+
+/* fighting-game segment ticks over the fill */
+.bar-ticks {
+  position: absolute; inset: 0;
+  background: repeating-linear-gradient(90deg, transparent 0 calc(10% - 2px), rgba(10, 8, 6, 0.55) calc(10% - 2px) 10%);
+  pointer-events: none;
 }
 
 .fill {
@@ -77,13 +104,14 @@ html, body { height: 100%; overflow: hidden; background: var(--ink); }
 }
 
 .fill-morale {
-  background: linear-gradient(180deg, var(--orange-bright), var(--orange) 55%, #b85a15);
-  box-shadow: 0 0 14px rgba(255, 154, 60, 0.55);
+  background: linear-gradient(180deg, #ffd9a0 0%, var(--orange-bright) 30%, var(--orange) 60%, #b85a15);
+  box-shadow: 0 0 16px rgba(255, 154, 60, 0.65);
 }
 
 .bar-block.right .bar { direction: rtl; }
 .fill-boring {
-  background: linear-gradient(180deg, #d9d2c0, var(--beige) 55%, #8d8574);
+  background: linear-gradient(180deg, #efe9d8 0%, #d9d2c0 30%, var(--beige) 60%, #8d8574);
+  box-shadow: 0 0 10px rgba(216, 210, 194, 0.35);
   margin-left: auto;
 }
 
